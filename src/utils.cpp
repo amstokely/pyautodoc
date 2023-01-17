@@ -62,7 +62,9 @@ void cleanDocStringLine (std::string &line) {
 			std::string("*"),
 			std::string("@param"),
 			std::string("@brief"),
-			std::string("@return")
+			std::string("@return"),
+			std::string("@note")
+
 	};
 	for (
 		auto                 &s: substringsToErase
@@ -98,7 +100,10 @@ void parseFunctionTypeAndName (
 		std::string &functionName
 ) {
 	unsigned int pos, start, end;
-	if (substringInString(line, "@type")
+	if (substringInString(
+			line,
+			"@type"
+	)
 	    != std::string::npos) {
 		std::string typeDelimiter = "@type{";
 		pos   = line.find(typeDelimiter);
@@ -115,7 +120,10 @@ void parseFunctionTypeAndName (
 				typeStringLength
 		);
 	}
-	if (substringInString(line, "@function")
+	if (substringInString(
+			line,
+			"@function"
+	)
 	    != std::string::npos) {
 		std::string nameDelimiter = "@function{";
 		pos                       = line.find(nameDelimiter);
@@ -137,7 +145,10 @@ void parseFunctionTypeAndName (
 std::string parseType (
 		std::string &line
 ) {
-	if (substringInString(line, "@type")
+	if (substringInString(
+			line,
+			"@type"
+	)
 	    != std::string::npos) {
 		std::string delimiter        = "@type{";
 		auto        pos              = line.find(delimiter);
@@ -212,8 +223,8 @@ void processAutoDocIgnore (
 }
 
 int substringInString (
-		const std::string& str,
-		const std::string& substr
+		const std::string &str,
+		const std::string &substr
 ) {
 	if (str.find(substr)
 	    != std::string::npos) {

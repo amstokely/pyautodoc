@@ -25,7 +25,7 @@ add_library(_pyautodoc SHARED
         src/autodoc_description.cpp
         src/autodoc_return.cpp
         src/autodoc_class.cpp
-        src/autodoc_example.cpp)
+        src/autodoc_example.cpp src/autodoc_note.cpp include/autodoc_note.h)
 set_target_properties(_pyautodoc PROPERTIES OUTPUT_DIR ${LIB_DIR} LIBRARY_OUTPUT_DIRECTORY ${LIB_DIR})
 set(CMAKE_SWIG_OUTDIR ${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
 

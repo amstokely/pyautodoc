@@ -1,5 +1,5 @@
-#ifndef CUDNA_PDB_H
-#define CUDNA_PDB_H
+#ifndef ATOM_H
+#define ATOM_H
 
 #include <string>
 #include <vector>
@@ -14,6 +14,8 @@ public:
 	/*!
 	* @function{Atom}
 	* @brief Atom class constructor
+	* @note All Atom class method examples use the Atom object in the
+	* constructor example.
 	*
 	* @param index The atom's index.
 	* 	@type{int}
@@ -97,7 +99,8 @@ public:
 	/*!
 	* @function{index} @type{int} @const
 	* @brief Returns the atom's index.
-	* @return The atom's index.
+	* @return The atom's
+	* index.
 	*/
 	int index () const;
 
@@ -137,4 +140,4 @@ private:
 	double      _mass;
 };
 
-#endif //CUDNA_PDB_H
+#endif //ATOM_H

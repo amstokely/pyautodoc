@@ -11,6 +11,7 @@
 #include "autodoc_return.h"
 #include <vector>
 #include "autodoc_example.h"
+#include "autodoc_note.h"
 
 class AutoDocClass;
 
@@ -42,6 +43,8 @@ public:
 
 	std::vector<AutoDocExample> cppExamples ();
 
+	std::vector<AutoDocNote> notes ();
+
 	std::string className ();
 
 	std::string swigDocString ();
@@ -63,6 +66,7 @@ private:
 	AutoDocReturn                 return_;
 	std::vector<AutoDocExample>   pythonExamples_;
 	std::vector<AutoDocExample>   cppExamples_;
+	std::vector<AutoDocNote>      notes_;
 	std::string                   className_;
 	int                           const_ = 0;
 	std::string                   swigDocString_;

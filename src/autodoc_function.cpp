@@ -24,7 +24,10 @@ AutoDocFunction::AutoDocFunction (
 			this->type_,
 			this->name_
 	);
-	if (substringInString(line, "@const")) {
+	if (substringInString(
+			line,
+			"@const"
+	)) {
 		this->const_ = 1;
 	}
 	this->className_ = std::move(className);
@@ -106,6 +109,14 @@ AutoDocFunction::AutoDocFunction (
 			this->description_ = AutoDocDescription(
 					is,
 					line
+			);
+		}
+		if (line.find("@note")
+		    != std::string::npos) {
+			this->notes_.emplace_back(
+							is,
+							line
+
 			);
 		}
 		if (line.find("@return")
@@ -215,6 +226,17 @@ void AutoDocFunction::generateSwigDocString () {
 		this->swigDocString_ += "\"\\nReturns\\n\"\n";
 		this->swigDocString_ += "\"--------------------\\n\"\n";
 		this->swigDocString_ += this->return_.swigDocString();
+		this->swigDocString_ += "\"\\n\"\n";
+	}
+	if (!this->notes_.empty()) {
+		for (
+			auto note: this->notes_
+				) {
+			this->swigDocString_ += "\"\\nNote\\n\"\n";
+			this->swigDocString_ += "\"--------------------\\n\"\n";
+			this->swigDocString_ += note.swigDocString();
+			this->swigDocString_ += "\"\\n\"\n";
+		}
 	}
 	if (!this->pythonExamples_.empty()) {
 		for (
@@ -246,6 +268,10 @@ void AutoDocFunction::writeSwigDocString (
 	swigInterfaceFile
 			<< this->swigDocString_;
 	swigInterfaceFile.close();
+}
+
+std::vector<AutoDocNote> AutoDocFunction::notes () {
+	return this->notes_;
 }
 
 AutoDocFunction::AutoDocFunction () = default;

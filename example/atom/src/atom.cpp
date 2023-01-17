@@ -1,6 +1,4 @@
-#include <numeric>
-#include <sstream>
-#include <algorithm>
+
 #include "../include/atom.h"
 
 Atom::Atom () = default;

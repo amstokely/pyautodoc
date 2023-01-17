@@ -10,6 +10,7 @@
 #include "autodoc_description.h"
 #include "autodoc_return.h"
 #include <vector>
+#include <map>
 #include "autodoc_example.h"
 #include "autodoc_note.h"
 
@@ -21,7 +22,11 @@ public:
 
 	explicit AutoDocFunction (
 			std::istream *is,
-			std::string className
+			std::string className,
+			std::map<
+					std::string,
+					std::string
+			        > &cppPyTypes
 	);
 
 	~AutoDocFunction ();
@@ -56,12 +61,20 @@ public:
 			int overwrite
 	);
 
+	std::string pyType ();
+
+	std::map<
+			std::string,
+			std::string
+	        > *cppPyTypes ();
+
 
 private:
 	std::string                   name_;
 	AutoDocDescription            description_;
 	std::vector<AutoDocParameter> parameters_;
 	std::string                   type_;
+	std::string                   pyType_;
 	std::string                   signature_;
 	AutoDocReturn                 return_;
 	std::vector<AutoDocExample>   pythonExamples_;
@@ -71,6 +84,10 @@ private:
 	int                           const_ = 0;
 	std::string                   swigDocString_;
 	std::string                   swigSignature_;
+	std::map<
+			std::string,
+			std::string
+	        >                     cppPyTypes_;
 };
 
 

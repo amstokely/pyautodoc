@@ -8,7 +8,11 @@
 
 AutoDocParameter::AutoDocParameter (
 		std::istream *is,
-		std::string line
+		std::string line,
+		std::map<
+				std::string,
+				std::string
+		        > &cppPyTypes
 ) {
 	cleanDocStringLine(line);
 	removeLeadingWhiteSpace(line);
@@ -33,6 +37,9 @@ AutoDocParameter::AutoDocParameter (
 			"@type"
 	)) {
 		this->type_ = parseType(line);
+		if (cppPyTypes.count(this->type_)) {
+			this->pyType_ = cppPyTypes[this->type_];
+		}
 		is->seekg(len);
 	}
 }
@@ -62,7 +69,10 @@ std::string AutoDocParameter::swigDocString () {
 	if (!this->type_.empty()) {
 		swigDocString_ += (
 				": "
-				+ this->type_
+				+ (
+						(this->pyType_.empty())
+						? this->type_ : this->pyType_
+				)
 		);
 	}
 	swigDocString_ += (
@@ -74,6 +84,10 @@ std::string AutoDocParameter::swigDocString () {
 		swigDocString_ += "\"\\n\"\n";
 	}
 	return swigDocString_;
+}
+
+std::string AutoDocParameter::pyType () {
+	return this->pyType_;
 }
 
 AutoDocParameter::~AutoDocParameter () = default;

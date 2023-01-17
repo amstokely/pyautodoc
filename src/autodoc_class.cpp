@@ -4,12 +4,15 @@
 
 #include <fstream>
 #include <iostream>
+#include <utility>
 #include "../include/autodoc_class.h"
 #include "../include/utils.h"
 
 AutoDocClass::AutoDocClass (
-		std::istream *is
+		std::istream *is,
+		std::map<std::string, std::string> cppPyTypes
 ) {
+	this->cppPyTypes_ = std::move(cppPyTypes);
 	std::string line;
 	int         finishedProcessingDocString = 0;
 	std::string delimiter                   = "};";
@@ -18,7 +21,10 @@ AutoDocClass::AutoDocClass (
 				*is,
 				line
 		);
-		if (substringInString(line, "@class")){
+		if (substringInString(
+				line,
+				"@class"
+		)) {
 			this->name_ = line.substr(
 					line.find("@class")
 					+ 6
@@ -26,10 +32,16 @@ AutoDocClass::AutoDocClass (
 			removeLeadingWhiteSpace(this->name_);
 			removeTrailingWhiteSpace(this->name_);
 		}
-		if (substringInString(line, delimiter)){
+		if (substringInString(
+				line,
+				delimiter
+		)) {
 			finishedProcessingDocString = 1;
 		}
-		if (substringInString(line, "@brief")) {
+		if (substringInString(
+				line,
+				"@brief"
+		)) {
 			this->description_ = AutoDocDescription(
 					is,
 					line
@@ -53,7 +65,10 @@ AutoDocClass::AutoDocClass (
 					"c++"
 			);
 		}
-		if (substringInString(line, "@AutoDocIgnore")){
+		if (substringInString(
+				line,
+				"@AutoDocIgnore"
+		)) {
 			processAutoDocIgnore(
 					is,
 					line,
@@ -69,7 +84,8 @@ AutoDocClass::AutoDocClass (
 			    == "function") {
 				AutoDocFunction autoDocFunction(
 						is,
-						this->name_
+						this->name_,
+						this->cppPyTypes_
 				);
 				this->methods_.push_back(autoDocFunction);
 			}
@@ -155,6 +171,13 @@ std::vector<AutoDocExample> AutoDocClass::pythonExamples () {
 
 std::vector<AutoDocExample> AutoDocClass::cppExamples () {
 	return this->cppExamples_;
+}
+
+std::map<
+		std::string,
+		std::string
+        > *AutoDocClass::cppPyTypes () {
+	return &(this->cppPyTypes_);
 }
 
 AutoDocClass::AutoDocClass () = default;

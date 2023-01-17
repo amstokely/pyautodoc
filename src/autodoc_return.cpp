@@ -4,6 +4,7 @@
 #include "../include/autodoc_return.h"
 #include "../include/utils.h"
 #include <utility>
+#include <map>
 
 AutoDocReturn::AutoDocReturn () = default;
 

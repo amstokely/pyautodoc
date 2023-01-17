@@ -103,8 +103,7 @@ void parseFunctionTypeAndName (
 	if (substringInString(
 			line,
 			"@type"
-	)
-	    != std::string::npos) {
+	)) {
 		std::string typeDelimiter = "@type{";
 		pos   = line.find(typeDelimiter);
 		start = pos
@@ -123,8 +122,7 @@ void parseFunctionTypeAndName (
 	if (substringInString(
 			line,
 			"@function"
-	)
-	    != std::string::npos) {
+	)) {
 		std::string nameDelimiter = "@function{";
 		pos                       = line.find(nameDelimiter);
 		start                     = pos

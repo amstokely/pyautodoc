@@ -12,8 +12,13 @@
 
 AutoDocFunction::AutoDocFunction (
 		std::istream *is,
-		std::string className
+		std::string className,
+		std::map<
+				std::string,
+				std::string
+		        > &cppPyTypes
 ) {
+	this->cppPyTypes_ = cppPyTypes;
 	std::string line;
 	std::getline(
 			*is,
@@ -24,15 +29,18 @@ AutoDocFunction::AutoDocFunction (
 			this->type_,
 			this->name_
 	);
+	if (this->cppPyTypes_.count(this->type_)) {
+		this->pyType_ = this->cppPyTypes_[this->type_];
+	}
 	if (substringInString(
 			line,
 			"@const"
 	)) {
 		this->const_ = 1;
 	}
-	this->className_ = std::move(className);
-	this->signature_ = this->type_
-	                   + ' ';
+	this->className_  = std::move(className);
+	this->signature_  = this->type_
+	                    + ' ';
 	int finishedProcessingDocstring = 0;
 	while (!finishedProcessingDocstring) {
 		std::getline(
@@ -84,7 +92,10 @@ AutoDocFunction::AutoDocFunction (
 				} else {
 					this->swigSignature_ += (
 							")->"
-							+ this->type_
+							+ (
+									(this->pyType_.empty())
+									? this->type_ : this->pyType_
+							)
 					);
 				}
 				if (this->const_) {
@@ -101,7 +112,8 @@ AutoDocFunction::AutoDocFunction (
 		    != std::string::npos) {
 			this->parameters_.emplace_back(
 					is,
-					line
+					line,
+					this->cppPyTypes_
 			);
 		}
 		if (line.find("@brief")
@@ -114,8 +126,8 @@ AutoDocFunction::AutoDocFunction (
 		if (line.find("@note")
 		    != std::string::npos) {
 			this->notes_.emplace_back(
-							is,
-							line
+					is,
+					line
 
 			);
 		}
@@ -272,6 +284,17 @@ void AutoDocFunction::writeSwigDocString (
 
 std::vector<AutoDocNote> AutoDocFunction::notes () {
 	return this->notes_;
+}
+
+std::string AutoDocFunction::pyType () {
+	return this->pyType_;
+}
+
+std::map<
+		std::string,
+		std::string
+        > *AutoDocFunction::cppPyTypes () {
+	return &(this->cppPyTypes_);
 }
 
 AutoDocFunction::AutoDocFunction () = default;

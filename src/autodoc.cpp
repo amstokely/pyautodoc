@@ -8,7 +8,16 @@
 
 AutoDoc::AutoDoc () = default;
 
-AutoDoc::AutoDoc (const std::string &fname) {
+AutoDoc::AutoDoc (
+		const std::string &fname,
+		std::map<
+				std::string,
+				std::string
+		        > *cppPyTypes
+) {
+	for (auto &it : *cppPyTypes) {
+		this->cppPyTypes_[it.first] = it.second;
+	}
 	std::ifstream is(
 			fname,
 			std::ifstream::binary
@@ -27,11 +36,13 @@ AutoDoc::AutoDoc (const std::string &fname) {
 			    == "function") {
 				AutoDocFunction autoDocFunction(
 						&is,
-						std::__cxx11::string());
+						line,
+						this->cppPyTypes_
+				);
 				this->functions_.push_back(autoDocFunction);
 			} else if (docStringType
 			           == "class") {
-				AutoDocClass autoDocClass(&is);
+				AutoDocClass autoDocClass(&is, this->cppPyTypes_);
 				this->classes_.push_back(autoDocClass);
 			}
 		}
@@ -65,6 +76,16 @@ void AutoDoc::writeSwigDocString (const std::string &fname) {
 		);
 	}
 }
+
+std::map<
+		std::string,
+		std::string
+        > * AutoDoc::cppPyTypes () {
+	return &(this->cppPyTypes_);
+}
+
+
+
 
 
 

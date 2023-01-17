@@ -13,7 +13,8 @@ class AutoDocClass {
 public:
 	AutoDocClass ();
 
-	explicit AutoDocClass (std::istream *is);
+	explicit AutoDocClass (std::istream *is, std::map<std::string,
+						   std::string> cppPyTypes);
 
 	std::vector<AutoDocFunction> methods ();
 
@@ -36,6 +37,8 @@ public:
 
 	std::string swigDocString ();
 
+	std::map<std::string, std::string> *cppPyTypes();
+
 private:
 	std::vector<AutoDocFunction> methods_;
 	std::string                  swigDocString_;
@@ -44,6 +47,11 @@ private:
 	std::vector<AutoDocClass>    classes_;
 	std::vector<AutoDocExample>  pythonExamples_;
 	std::vector<AutoDocExample>  cppExamples_;
+	std::map<
+			std::string,
+			std::string
+	        >
+	                             cppPyTypes_;
 };
 
 #endif //PYAUTODOC_AUTODOC_CLASS_H

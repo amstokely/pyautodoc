@@ -3,6 +3,7 @@
 //
 #include <string>
 #include <autodoc_description.h>
+#include <map>
 
 #ifndef PYAUTODOC_AUTODOC_RETURN_H
 #define PYAUTODOC_AUTODOC_RETURN_H
@@ -24,6 +25,7 @@ public:
 
 private:
 	AutoDocDescription description_;
+	std::string pyType_;
 	std::string type_;
 };
 

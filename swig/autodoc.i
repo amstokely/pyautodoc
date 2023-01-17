@@ -16,6 +16,8 @@
 %template(AutoDocClassVector) std::vector<AutoDocClass>;
 %template(AutoDocExampleVector) std::vector<AutoDocExample>;
 %template(svector) std::vector<std::string>;
+%include "autodoc_python_special_methods.i"
+%include "autodoc_map_typemaps.i"
 
 %include autodoc.h
 %include autodoc_return.h

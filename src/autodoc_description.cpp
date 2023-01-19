@@ -30,7 +30,10 @@ AutoDocDescription::AutoDocDescription (
 			removeLeadingWhiteSpace(this->str_);
 			removeTrailingWhiteSpace(this->str_);
 			break;
-		} else if (substringInString(line, "*/")) {
+		} else if (substringInString(
+				line,
+				"*/"
+		)) {
 			is->seekg(
 					len,
 					std::ios_base::beg
@@ -39,6 +42,9 @@ AutoDocDescription::AutoDocDescription (
 			removeTrailingWhiteSpace(this->str_);
 			break;
 		} else {
+			line = escapeQuotes(
+					line
+			);
 			cleanDocStringLine(line);
 			removeLeadingWhiteSpace(line);
 			removeTrailingWhiteSpace(line);

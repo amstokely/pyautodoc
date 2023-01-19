@@ -4,12 +4,12 @@
 
 
 %typecheck(SWIG_TYPECHECK_POINTER)
-(std::map<std::string, std::string> *cppPyTypes) {
+(std::map<std::string, std::string> *) {
 	$1 = PyDict_Check($input) ? 1 : 0;
 }
 
 %typemap(in) (
-		std::map<std::string, std::string> *cppPyTypes
+		std::map<std::string, std::string> *
 ){
 	$1 = new std::map<std::string, std::string>;
 	int i;
@@ -47,8 +47,8 @@
 	free(tmpPyType);
 }
 
-%typemap(out) std::map<std::string, std::string> *cppPyTypes {
-	Py_XDECREF($result);   /* Blow away any previous result */
+%typemap(out) std::map<std::string, std::string> * {
+	Py_XDECREF($result);
 	$result = PyDict_New();
 	for (auto it : *$1) {
 		auto cppType = PyUnicode_FromString(it.first.data());
@@ -57,6 +57,6 @@
 	}
 }
 %typemap(freearg)
-	std::map<std::string, std::string> *cppPyTypes {
+	std::map<std::string, std::string> * {
 	delete $1;
 }

@@ -20,13 +20,17 @@ class AutoDocFunction {
 public:
 	AutoDocFunction ();
 
-	explicit AutoDocFunction (
+	AutoDocFunction (
 			std::istream *is,
 			std::string className,
 			std::map<
 					std::string,
 					std::string
-			        > &cppPyTypes
+			        > &functionCppPyTypes,
+			std::map<
+					std::string,
+					std::string
+			        > &parameterCppPyTypes
 	);
 
 	~AutoDocFunction ();
@@ -54,6 +58,8 @@ public:
 
 	std::string swigDocString ();
 
+	std::string overloadedSwigDocString ();
+
 	void generateSwigDocString ();
 
 	void writeSwigDocString (
@@ -66,7 +72,16 @@ public:
 	std::map<
 			std::string,
 			std::string
-	        > *cppPyTypes ();
+	        > *functionCppPyTypes ();
+
+	std::map<
+			std::string,
+			std::string
+	        > *parameterCppPyTypes ();
+
+	void generateOverloadedSwigDocString (int version);
+
+	std::string swigDocStringPrefix ();
 
 
 private:
@@ -83,11 +98,16 @@ private:
 	std::string                   className_;
 	int                           const_ = 0;
 	std::string                   swigDocString_;
+	std::string                   overloadedSwigDocString_;
 	std::string                   swigSignature_;
 	std::map<
 			std::string,
 			std::string
-	        >                     cppPyTypes_;
+	        >                     functionCppPyTypes_;
+	std::map<
+			std::string,
+			std::string
+	        >                     parameterCppPyTypes_;
 };
 
 

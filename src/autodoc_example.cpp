@@ -18,10 +18,9 @@ AutoDocExample::AutoDocExample (
 			*is,
 			line
 	)) {
-		std::string lineCopy = line;
-		removeLeadingWhiteSpace(lineCopy);
-		removeTrailingWhiteSpace(lineCopy);
-		if (line.find("} <!--END-->")
+		removeLeadingWhiteSpace(line);
+		removeTrailingWhiteSpace(line);
+		if (line.find("<!--EXAMPLE END-->")
 		    != std::string::npos) {
 			this->str_ = this->str_.substr(
 					0,
@@ -30,6 +29,9 @@ AutoDocExample::AutoDocExample (
 			);
 			break;
 		} else {
+			line = escapeQuotes(
+					line
+			);
 			cleanDocStringLine(line);
 			this->str_ += (
 					line

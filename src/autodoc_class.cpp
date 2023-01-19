@@ -5,14 +5,30 @@
 #include <fstream>
 #include <iostream>
 #include <utility>
+#include <algorithm>
 #include "../include/autodoc_class.h"
 #include "../include/utils.h"
 
 AutoDocClass::AutoDocClass (
 		std::istream *is,
-		std::map<std::string, std::string> cppPyTypes
+		std::map<
+				std::string,
+				std::string
+		        > &functionCppPyTypes,
+		std::map<
+				std::string,
+				std::string
+		        > &parameterCppPyTypes
 ) {
-	this->cppPyTypes_ = std::move(cppPyTypes);
+	std::map<
+			std::string,
+			int
+	        >                    methodsNameCount;
+	std::vector<AutoDocFunction> tmpMethods;
+	this->functionCppPyTypes_               =
+			std::move(functionCppPyTypes);
+	this->parameterCppPyTypes_              =
+			std::move(parameterCppPyTypes);
 	std::string line;
 	int         finishedProcessingDocString = 0;
 	std::string delimiter                   = "};";
@@ -85,12 +101,35 @@ AutoDocClass::AutoDocClass (
 				AutoDocFunction autoDocFunction(
 						is,
 						this->name_,
-						this->cppPyTypes_
+						this->functionCppPyTypes_,
+						this->parameterCppPyTypes_
 				);
-				this->methods_.push_back(autoDocFunction);
+				tmpMethods.push_back(autoDocFunction);
 			}
 		}
 	}
+	for (
+		auto    method: tmpMethods
+			) {
+		std::string methodName      = method.name();
+		auto        methodNameCount = methodsNameCount.emplace(
+				methodName,
+				0
+		);
+		methodNameCount.first->second += 1;
+	}
+	std::partition_copy(
+			tmpMethods.begin(),
+			tmpMethods.end(),
+			std::back_inserter(this->overloadedMethods_),
+			std::back_inserter(this->methods_),
+			[methodsNameCount] (
+					AutoDocFunction method
+			) {
+				return methodsNameCount.at(method.name())
+				       > 1;
+			}
+	);
 }
 
 std::vector<AutoDocFunction> AutoDocClass::methods () {
@@ -136,8 +175,28 @@ void AutoDocClass::generateSwigDocString () {
 		}
 	}
 	this->swigDocString_ += ";";
+	std::string previousMethodName;
+	int         overloadedMethodVersion = 1;
+	if (!this->overloadedMethods_.empty()) {
+		for (
+			auto method: this->overloadedMethods_
+				) {
+			if (method.name()
+			    != previousMethodName) {
+				overloadedMethodVersion = 1;
+			}
+			method.generateOverloadedSwigDocString(
+					overloadedMethodVersion
+			);
+			this->swigDocString_ +=
+					method.overloadedSwigDocString();
+			previousMethodName = method.name();
+			overloadedMethodVersion++;
+		}
+		this->swigDocString_ += ";";
+	}
 	for (
-		auto method: this->methods_
+		auto    method: this->methods_
 			) {
 		method.generateSwigDocString();
 		this->swigDocString_ += method.swigDocString();
@@ -176,8 +235,19 @@ std::vector<AutoDocExample> AutoDocClass::cppExamples () {
 std::map<
 		std::string,
 		std::string
-        > *AutoDocClass::cppPyTypes () {
-	return &(this->cppPyTypes_);
+        > *AutoDocClass::functionCppPyTypes () {
+	return &(functionCppPyTypes_);
+}
+
+std::map<
+		std::string,
+		std::string
+        > *AutoDocClass::parameterCppPyTypes () {
+	return &(parameterCppPyTypes_);
+}
+
+std::vector<AutoDocFunction> AutoDocClass::overloadedMethods () {
+	return this->overloadedMethods_;
 }
 
 AutoDocClass::AutoDocClass () = default;

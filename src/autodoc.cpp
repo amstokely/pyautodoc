@@ -9,14 +9,56 @@
 AutoDoc::AutoDoc () = default;
 
 AutoDoc::AutoDoc (
+		const std::string &fname
+) {
+	std::ifstream is(
+			fname,
+			std::ifstream::binary
+	);
+	std::string   line;
+	while (std::getline(
+			is,
+			line
+	)) {
+		if (docStringStart(line)) {
+			std::string docStringType = getDocStringType(
+					&is,
+					line
+			);
+			if (docStringType
+			    == "function") {
+				AutoDocFunction autoDocFunction(
+						&is,
+						line,
+						this->functionCppPyTypes_,
+						this->parameterCppPyTypes_
+				);
+				this->functions_.push_back(autoDocFunction);
+			} else if (docStringType
+			           == "class") {
+				AutoDocClass autoDocClass(
+						&is,
+						this->functionCppPyTypes_,
+						this->parameterCppPyTypes_
+				);
+				this->classes_.push_back(autoDocClass);
+			}
+		}
+	}
+}
+
+AutoDoc::AutoDoc (
 		const std::string &fname,
 		std::map<
 				std::string,
 				std::string
 		        > *cppPyTypes
 ) {
-	for (auto &it : *cppPyTypes) {
-		this->cppPyTypes_[it.first] = it.second;
+	for (
+		auto      &it: *cppPyTypes
+			) {
+		this->functionCppPyTypes_[it.first]  = it.second;
+		this->parameterCppPyTypes_[it.first] = it.second;
 	}
 	std::ifstream is(
 			fname,
@@ -37,12 +79,17 @@ AutoDoc::AutoDoc (
 				AutoDocFunction autoDocFunction(
 						&is,
 						line,
-						this->cppPyTypes_
+						this->functionCppPyTypes_,
+						this->parameterCppPyTypes_
 				);
 				this->functions_.push_back(autoDocFunction);
 			} else if (docStringType
 			           == "class") {
-				AutoDocClass autoDocClass(&is, this->cppPyTypes_);
+				AutoDocClass autoDocClass(
+						&is,
+						this->functionCppPyTypes_,
+						this->parameterCppPyTypes_
+				);
 				this->classes_.push_back(autoDocClass);
 			}
 		}
@@ -80,8 +127,72 @@ void AutoDoc::writeSwigDocString (const std::string &fname) {
 std::map<
 		std::string,
 		std::string
-        > * AutoDoc::cppPyTypes () {
-	return &(this->cppPyTypes_);
+        > *AutoDoc::functionCppPyTypes () {
+	return &(functionCppPyTypes_);
+}
+
+std::map<
+		std::string,
+		std::string
+        > *AutoDoc::parameterCppPyTypes () {
+	return &(parameterCppPyTypes_);
+}
+
+AutoDoc::AutoDoc (
+		const std::string &fname,
+		std::map<
+				std::string,
+				std::string
+		        > *functionCppPyTypes,
+		std::map<
+				std::string,
+				std::string
+		        > *parameterCppPyTypes
+) {
+	for (
+		auto      &it: *functionCppPyTypes
+			) {
+		this->functionCppPyTypes_[it.first] = it.second;
+	}
+	for (
+		auto      &it: *parameterCppPyTypes
+			) {
+		this->parameterCppPyTypes_[it.first] = it.second;
+	}
+	std::ifstream is(
+			fname,
+			std::ifstream::binary
+	);
+	std::string   line;
+	while (std::getline(
+			is,
+			line
+	)) {
+		if (docStringStart(line)) {
+			std::string docStringType = getDocStringType(
+					&is,
+					line
+			);
+			if (docStringType
+			    == "function") {
+				AutoDocFunction autoDocFunction(
+						&is,
+						line,
+						this->functionCppPyTypes_,
+						this->parameterCppPyTypes_
+				);
+				this->functions_.push_back(autoDocFunction);
+			} else if (docStringType
+			           == "class") {
+				AutoDocClass autoDocClass(
+						&is,
+						this->functionCppPyTypes_,
+						this->parameterCppPyTypes_
+				);
+				this->classes_.push_back(autoDocClass);
+			}
+		}
+	}
 }
 
 

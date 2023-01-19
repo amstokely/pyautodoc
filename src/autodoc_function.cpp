@@ -16,9 +16,14 @@ AutoDocFunction::AutoDocFunction (
 		std::map<
 				std::string,
 				std::string
-		        > &cppPyTypes
+		        > &functionCppPyTypes,
+		std::map<
+				std::string,
+				std::string
+		        > &parameterCppPyTypes
 ) {
-	this->cppPyTypes_ = cppPyTypes;
+	this->functionCppPyTypes_  = functionCppPyTypes;
+	this->parameterCppPyTypes_ = parameterCppPyTypes;
 	std::string line;
 	std::getline(
 			*is,
@@ -29,8 +34,8 @@ AutoDocFunction::AutoDocFunction (
 			this->type_,
 			this->name_
 	);
-	if (this->cppPyTypes_.count(this->type_)) {
-		this->pyType_ = this->cppPyTypes_[this->type_];
+	if (this->functionCppPyTypes_.count(this->type_)) {
+		this->pyType_ = this->functionCppPyTypes_[this->type_];
 	}
 	if (substringInString(
 			line,
@@ -38,9 +43,9 @@ AutoDocFunction::AutoDocFunction (
 	)) {
 		this->const_ = 1;
 	}
-	this->className_  = std::move(className);
-	this->signature_  = this->type_
-	                    + ' ';
+	this->className_           = std::move(className);
+	this->signature_           = this->type_
+	                             + ' ';
 	int finishedProcessingDocstring = 0;
 	while (!finishedProcessingDocstring) {
 		std::getline(
@@ -113,7 +118,7 @@ AutoDocFunction::AutoDocFunction (
 			this->parameters_.emplace_back(
 					is,
 					line,
-					this->cppPyTypes_
+					this->parameterCppPyTypes_
 			);
 		}
 		if (line.find("@brief")
@@ -196,18 +201,112 @@ std::string AutoDocFunction::swigDocString () {
 	return this->swigDocString_;
 }
 
-void AutoDocFunction::generateSwigDocString () {
-	this->swigDocString_ =
-			"%feature(\"docstring\")\n";
+std::string AutoDocFunction::swigDocStringPrefix () {
+	std::string swigDocStringPrefix_ =
+			            "%feature(\"docstring\")\n";
 	if (this->className_.empty()) {
-		this->swigDocString_ += this->name_;
+		swigDocStringPrefix_ += this->name_;
 	} else {
-		this->swigDocString_ += (
+		swigDocStringPrefix_ += (
 				this->className_
 				+ "::"
 				+ this->name_
 		);
 	}
+	return swigDocStringPrefix_;
+}
+
+void AutoDocFunction::generateOverloadedSwigDocString (int version) {
+	this->overloadedSwigDocString_.clear();
+	if (version
+	    == 1) {
+		this->overloadedSwigDocString_ = this->swigDocStringPrefix();
+	}
+	this->overloadedSwigDocString_ += "\n\"\\n\"\n\"";
+	std::string border =
+			            "********************";
+	this->overloadedSwigDocString_ += border;
+	this->overloadedSwigDocString_ += "\\n\"\n";
+	std::string versionString = "\"*    Version ";
+	versionString += std::to_string(version);
+	for (
+			auto pos = versionString.length();
+			pos
+			< border.length();
+			pos++
+			) {
+		versionString += ' ';
+	}
+	versionString += "*\\n\"\n";
+	this->overloadedSwigDocString_ += versionString;
+	this->overloadedSwigDocString_ +=
+			"\"********************\\n\"\n";
+
+	this->overloadedSwigDocString_ += (
+			"\n\""
+			+ this->swigSignature_
+			+ "\\n\"\n"
+	);
+	if (!this->description_.str().empty()) {
+		this->overloadedSwigDocString_ += "\"\\nDescription\\n\"\n";
+		this->overloadedSwigDocString_ +=
+				"\"--------------------\\n\"\n";
+		this->overloadedSwigDocString_ +=
+				this->description_.swigDocString();
+		this->overloadedSwigDocString_ += "\"\\n\"\n";
+	}
+	if (!this->parameters_.empty()) {
+		this->overloadedSwigDocString_ += "\"\\nParameters\\n\"\n";
+		this->overloadedSwigDocString_ +=
+				"\"--------------------\\n\"\n";
+		for (
+			auto &parameter: this->parameters_
+				) {
+			this->overloadedSwigDocString_ +=
+					parameter.swigDocString();
+			if (!isLastElementInVector<AutoDocParameter>(
+					parameter,
+					this->parameters_
+			)) {
+				this->overloadedSwigDocString_ += "\"\\n\"\n";
+			}
+		}
+	}
+	if (!this->return_.description().str().empty()) {
+		this->overloadedSwigDocString_ += "\"\\nReturns\\n\"\n";
+		this->overloadedSwigDocString_ +=
+				"\"--------------------\\n\"\n";
+		this->overloadedSwigDocString_ +=
+				this->return_.swigDocString();
+		this->overloadedSwigDocString_ += "\"\\n\"\n";
+	}
+	if (!this->notes_.empty()) {
+		for (
+			auto note: this->notes_
+				) {
+			this->overloadedSwigDocString_ += "\"\\nNote\\n\"\n";
+			this->overloadedSwigDocString_ +=
+					"\"--------------------\\n\"\n";
+			this->overloadedSwigDocString_ += note.swigDocString();
+			this->overloadedSwigDocString_ += "\"\\n\"\n";
+		}
+	}
+	if (!this->pythonExamples_.empty()) {
+		for (
+			auto example: this->pythonExamples_
+				) {
+			this->overloadedSwigDocString_ += "\"\\nExample\\n\"\n";
+			this->overloadedSwigDocString_ +=
+					"\"--------------------\\n\"\n";
+			this->overloadedSwigDocString_ +=
+					example.swigDocString();
+		}
+	}
+}
+
+void AutoDocFunction::generateSwigDocString () {
+	this->swigDocString_.clear();
+	this->swigDocString_ = swigDocStringPrefix();
 	this->swigDocString_ += (
 			"\n\""
 			+ this->swigSignature_
@@ -266,7 +365,6 @@ void AutoDocFunction::writeSwigDocString (
 		const std::string &fname,
 		int overwrite
 ) {
-	this->swigDocString_.clear();
 	this->generateSwigDocString();
 	std::ofstream swigInterfaceFile;
 	if (overwrite) {
@@ -293,8 +391,19 @@ std::string AutoDocFunction::pyType () {
 std::map<
 		std::string,
 		std::string
-        > *AutoDocFunction::cppPyTypes () {
-	return &(this->cppPyTypes_);
+        > *AutoDocFunction::functionCppPyTypes () {
+	return &(functionCppPyTypes_);
+}
+
+std::map<
+		std::string,
+		std::string
+        > *AutoDocFunction::parameterCppPyTypes () {
+	return &(parameterCppPyTypes_);
+}
+
+std::string AutoDocFunction::overloadedSwigDocString () {
+	return this->overloadedSwigDocString_;
 }
 
 AutoDocFunction::AutoDocFunction () = default;

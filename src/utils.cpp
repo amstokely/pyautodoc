@@ -5,6 +5,24 @@
 #include <iostream>
 #include "../include/utils.h"
 
+
+std::string escapeQuotes (
+		std::string &str
+) {
+	std::string newStr;
+	for (
+		auto    c: str
+			) {
+		if (c
+		    == '\"') {
+			newStr += "\\\"";
+		} else {
+			newStr += c;
+		}
+	}
+	return newStr;
+}
+
 std::string getDocStringType (
 		std::istream *is,
 		std::string line

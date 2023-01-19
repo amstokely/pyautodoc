@@ -8,6 +8,10 @@
 #include <string>
 #include <vector>
 
+std::string escapeQuotes (
+		std::string &str
+);
+
 int docStringStart (
 		const std::string &line
 );

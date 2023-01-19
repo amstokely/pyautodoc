@@ -11,22 +11,49 @@
 #include "autodoc_function.h"
 #include "autodoc_class.h"
 
+/*!
+* @class AutoDoc
+*/
 class AutoDoc {
 public:
 	AutoDoc ();
 
+	/*!
+	* @function{AutoDoc}
+	* @param fname
+	*/
 	explicit AutoDoc (
+			const std::string &fname
+	);
+
+	AutoDoc (
 			const std::string &fname,
 			std::map<
 					std::string,
 					std::string
 			        > *cppPyTypes
 	);
+	AutoDoc (
+			const std::string &fname,
+			std::map<
+					std::string,
+					std::string
+			        > *functionCppPyTypes,
+			std::map<
+					std::string,
+					std::string
+			        > *parameterCppPyTypes
+	);
 
 	std::map<
 			std::string,
 			std::string
-	        > *cppPyTypes();
+	        > *functionCppPyTypes ();
+
+	std::map<
+			std::string,
+			std::string
+	        > *parameterCppPyTypes ();
 
 	std::vector<AutoDocFunction> functions ();
 
@@ -42,7 +69,11 @@ private:
 	std::map<
 			std::string,
 			std::string
-	        >                    cppPyTypes_;
+	        >                    functionCppPyTypes_;
+	std::map<
+			std::string,
+			std::string
+	        >                    parameterCppPyTypes_;
 };
 
 #endif //PYCDOC_PYDOC_H

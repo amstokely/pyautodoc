@@ -1,0 +1,383 @@
+Help on class Atom in atom:
+
+atom.Atom = class Atom(builtins.object)
+ |  atom.Atom(*args)
+ |  
+ |  Description
+ |  --------------------
+ |      A light weight class for storing individual atom information
+ |      typically found in molecular topology files.
+ |  
+ |  Methods defined here:
+ |  
+ |  __init__(self, *args)
+ |      ********************
+ |      *    Version 1     *
+ |      ********************
+ |      Atom()
+ |      
+ |      Description
+ |      --------------------
+ |          The default constructor. When an instance of Atom is
+ |          instantiated using this constructor, you have to manually set
+ |          all of the class attributes.
+ |      
+ |      Example
+ |      --------------------
+ |           from atom import Atom
+ |      
+ |           newAtom = Atom()
+ |           newAtom.index(0)
+ |           newAtom.name('CA')
+ |           newAtom.element("C")
+ |           newAtom.residueName("GLU")
+ |           newAtom.residueId(1)
+ |           newAtom.mass(12.001)
+ |      
+ |      ********************
+ |      *    Version 2     *
+ |      ********************
+ |      Atom(index, name, element, residueName, residueId, mass)
+ |      
+ |      Parameters
+ |      --------------------
+ |      index: int
+ |          The atom's index.
+ |      
+ |      name: str
+ |          The atom's name.
+ |      
+ |      element: str
+ |          The atom's element symbol.
+ |      
+ |      residueName: str
+ |          The atom's residue name.
+ |      
+ |      residueId: str
+ |          The atom's residue ID.
+ |      
+ |      mass: [np.float64, float, np.float32]
+ |          The atom's atomic mass in amu.
+ |      
+ |      Example
+ |      --------------------
+ |           from atom import Atom
+ |      
+ |           newAtom = Atom(0, 'CA', 'C', 'GLU', 1, 12.001)
+ |  
+ |  __repr__ = _swig_repr(self)
+ |  
+ |  element(self, *args)
+ |      ********************
+ |      *    Version 1     *
+ |      ********************
+ |      element()->str
+ |      
+ |      Description
+ |      --------------------
+ |          Return's the atom's element symbol.
+ |      
+ |      Returns
+ |      --------------------
+ |          The atom's element symbol.
+ |      
+ |      
+ |      Note
+ |      --------------------
+ |          This method is the element attribute getter.
+ |      
+ |      ********************
+ |      *    Version 2     *
+ |      ********************
+ |      element(element)->None
+ |      
+ |      Description
+ |      --------------------
+ |          Sets the atom's element symbol.
+ |      
+ |      Parameters
+ |      --------------------
+ |      element: str
+ |          The atom's element symbol.
+ |      
+ |      Note
+ |      --------------------
+ |          This method is the element attribute setter.
+ |  
+ |  index(self, *args)
+ |      ********************
+ |      *    Version 1     *
+ |      ********************
+ |      index()->int
+ |      
+ |      Description
+ |      --------------------
+ |          Return's the atom's index.
+ |      
+ |      Returns
+ |      --------------------
+ |          The atom's index.
+ |      
+ |      
+ |      Note
+ |      --------------------
+ |          This method is the index attribute getter
+ |      
+ |          } <!--EXAMPLE END-->
+ |      
+ |      ********************
+ |      *    Version 2     *
+ |      ********************
+ |      index(index)->None
+ |      
+ |      Description
+ |      --------------------
+ |          Sets the atom's index.
+ |      
+ |      Parameters
+ |      --------------------
+ |      index: int
+ |          The atom's index.
+ |      
+ |      Note
+ |      --------------------
+ |          This method is the index attribute setter.
+ |      
+ |      Example
+ |      --------------------
+ |      
+ |           from atom import Atom
+ |      
+ |           newAtom = Atom()
+ |           newAtom.index(0)
+ |      
+ |           index = newAtom.index()
+ |           print(index)
+ |      
+ |           '''
+ |           --> 0
+ |           '''
+ |  
+ |  mass(self, *args)
+ |      ********************
+ |      *    Version 1     *
+ |      ********************
+ |      mass()->float
+ |      
+ |      Description
+ |      --------------------
+ |          Return's the atom's mass.
+ |      
+ |      Returns
+ |      --------------------
+ |          The atom's mass.
+ |      
+ |      
+ |      Note
+ |      --------------------
+ |          This method is the mass attribute getter.
+ |      
+ |      ********************
+ |      *    Version 2     *
+ |      ********************
+ |      mass(mass)->None
+ |      
+ |      Description
+ |      --------------------
+ |          Sets the atom's mass.
+ |      
+ |      Parameters
+ |      --------------------
+ |      mass: [np.float64, float, np.float32]
+ |          The atom's mass.
+ |      
+ |      Note
+ |      --------------------
+ |          This method is the mass attribute setter.
+ |      
+ |      Example
+ |      --------------------
+ |      
+ |           from atom import Atom
+ |      
+ |           newAtom = Atom()
+ |           newAtom.mass(12.001)
+ |      
+ |           mass = newAtom.mass()
+ |           print(mass)
+ |      
+ |           '''
+ |           --> 12.001
+ |           '''
+ |  
+ |  name(self, *args)
+ |      ********************
+ |      *    Version 1     *
+ |      ********************
+ |      name()->str
+ |      
+ |      Description
+ |      --------------------
+ |          Return's the atom's name.
+ |      
+ |      Returns
+ |      --------------------
+ |          The atom's name.
+ |      
+ |      
+ |      Note
+ |      --------------------
+ |          This method is the name attribute getter.
+ |      
+ |      ********************
+ |      *    Version 2     *
+ |      ********************
+ |      name(name)->None
+ |      
+ |      Description
+ |      --------------------
+ |          Sets the atom's name.
+ |      
+ |      Parameters
+ |      --------------------
+ |      name: str
+ |          The atom's name.
+ |      
+ |      Note
+ |      --------------------
+ |          This method is the name attribute setter.
+ |      
+ |      Example
+ |      --------------------
+ |      
+ |           from atom import Atom
+ |      
+ |           newAtom = Atom()
+ |           newAtom.name("CA)
+ |      
+ |           name = newAtom.name()
+ |           print(name)
+ |      
+ |           '''
+ |           --> CA
+ |           '''
+ |  
+ |  residueId(self, *args)
+ |      ********************
+ |      *    Version 1     *
+ |      ********************
+ |      residueId()->int
+ |      
+ |      Description
+ |      --------------------
+ |          Return's the atom's residue ID.
+ |      
+ |      Returns
+ |      --------------------
+ |          The atom's residue ID.
+ |      
+ |      
+ |      Note
+ |      --------------------
+ |          This method is the residueId attribute getter.
+ |      
+ |      ********************
+ |      *    Version 2     *
+ |      ********************
+ |      residueId(residueId)->None
+ |      
+ |      Description
+ |      --------------------
+ |          Sets the atom's residue ID.
+ |      
+ |      Parameters
+ |      --------------------
+ |      residueId: int
+ |          The atom's residue ID.
+ |      
+ |      Note
+ |      --------------------
+ |          This method is the residueId attribute setter.
+ |      
+ |      Example
+ |      --------------------
+ |      
+ |           from atom import Atom
+ |      
+ |           newAtom = Atom()
+ |           newAtom.residueId(1)
+ |      
+ |           residueId = newAtom.residueId()
+ |           print(residueId)
+ |      
+ |           '''
+ |           --> 1
+ |           '''
+ |  
+ |  residueName(self, *args)
+ |      ********************
+ |      *    Version 1     *
+ |      ********************
+ |      residueName()->str
+ |      
+ |      Description
+ |      --------------------
+ |          Return's the atom's residue name.
+ |      
+ |      Returns
+ |      --------------------
+ |          The atom's residue name.
+ |      
+ |      
+ |      Note
+ |      --------------------
+ |          This method is the residueName attribute getter.
+ |      
+ |      Example
+ |      --------------------
+ |      
+ |           from atom import Atom
+ |      
+ |           newAtom = Atom()
+ |           newAtom.element("C")
+ |      
+ |           element = newAtom.element()
+ |           print(element)
+ |      
+ |           '''
+ |           --> C
+ |           '''
+ |      
+ |      ********************
+ |      *    Version 2     *
+ |      ********************
+ |      residueName(residueName)->None
+ |      
+ |      Description
+ |      --------------------
+ |          Sets the atom's residue name.
+ |      
+ |      Parameters
+ |      --------------------
+ |      residueName: str
+ |          The atom's residue name.
+ |      
+ |      Note
+ |      --------------------
+ |          This method is the residueName attribute setter.
+ |      
+ |      Example
+ |      --------------------
+ |      
+ |           from atom import Atom
+ |      
+ |           newAtom = Atom()
+ |           newAtom.residueName("GLU")
+ |      
+ |           residueName = newAtom.residueName()
+ |           print(residueName)
+ |      
+ |           '''
+ |           --> GLU
+ |           '''
+ |

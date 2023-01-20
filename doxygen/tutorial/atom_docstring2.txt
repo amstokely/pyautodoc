@@ -1,0 +1,33 @@
+Help on class Atom in atom:
+
+atom.Atom = class Atom(builtins.object)
+ |  atom.Atom(*args)
+ |  
+ |  Description
+ |  --------------------
+ |      A light weight class for storing individual atom information
+ |      typically found in molecular topology files.
+ |  
+ |  Methods defined here:
+ |  
+ |  __init__(self, *args)
+ |      Description
+ |      --------------------
+ |          A light weight class for storing individual atom information
+ |          typically found in molecular topology files.
+ |  
+ |  __repr__ = _swig_repr(self)
+ |  
+ |  element(self)
+ |  
+ |  index(self)
+ |  
+ |  mass(self)
+ |  
+ |  name(self)
+ |  
+ |  residueId(self)
+ |  
+ |  residueName(self)
+ |  
+ |

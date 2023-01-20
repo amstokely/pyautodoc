@@ -1,0 +1,109 @@
+Help on class Atom in atom:
+
+atom.Atom = class Atom(builtins.object)
+ |  atom.Atom(*args)
+ |  
+ |  Description
+ |  --------------------
+ |      A light weight class for storing individual atom information
+ |      typically found in molecular topology files.
+ |  
+ |  Methods defined here:
+ |  
+ |  __init__(self, *args)
+ |      Atom(index, name, element, residueName, residueId, mass)
+ |      
+ |      Parameters
+ |      --------------------
+ |      index: int
+ |          The atom's index.
+ |      
+ |      name: str
+ |          The atom's name.
+ |      
+ |      element: str
+ |          The atom's element symbol.
+ |      
+ |      residueName: str
+ |          The atom's residue name.
+ |      
+ |      residueId: str
+ |          The atom's residue ID.
+ |      
+ |      mass: [np.float64, float, np.float32]
+ |          The atom's atomic mass in amu.
+ |      
+ |      Example
+ |      --------------------
+ |           from atom import Atom
+ |      
+ |           newAtom = Atom(0, 'CA', 'C', 'GLU', 1, 12.001)
+ |  
+ |  __repr__ = _swig_repr(self)
+ |  
+ |  element(self)
+ |      element()->str
+ |      
+ |      Description
+ |      --------------------
+ |          Return's the atom's element symbol.
+ |      
+ |      Returns
+ |      --------------------
+ |          The atom's element symbol.
+ |  
+ |  index(self)
+ |      index()->int
+ |      
+ |      Description
+ |      --------------------
+ |          Return's the atom's index.
+ |      
+ |      Returns
+ |      --------------------
+ |          The atom's index.
+ |  
+ |  mass(self)
+ |      mass()->float
+ |      
+ |      Description
+ |      --------------------
+ |          Return's the atom's mass.
+ |      
+ |      Returns
+ |      --------------------
+ |          The atom's mass.
+ |  
+ |  name(self)
+ |      name()->str
+ |      
+ |      Description
+ |      --------------------
+ |          Return's the atom's name.
+ |      
+ |      Returns
+ |      --------------------
+ |          The atom's name.
+ |  
+ |  residueId(self)
+ |      residueId()->int
+ |      
+ |      Description
+ |      --------------------
+ |          Return's the atom's residue ID.
+ |      
+ |      Returns
+ |      --------------------
+ |          The atom's residue ID.
+ |  
+ |  residueName(self)
+ |      residueName()->str
+ |      
+ |      Description
+ |      --------------------
+ |          Return's the atom's residue name.
+ |      
+ |      Returns
+ |      --------------------
+ |          The atom's residue name.
+ |

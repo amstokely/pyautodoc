@@ -72,6 +72,7 @@ set(DOXYGEN_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/docs)
 set(DOXYGEN_GENERATE_XML TRUE)
 list(APPEND PYAUTODOC_DOCUMENTATION_INPUT_FILES
         ${CMAKE_SOURCE_DIR}/doxygen/docs.h
+        ${CMAKE_SOURCE_DIR}/include/autodoc.h
         )
 doxygen_add_docs(
         pyautodoc_docs

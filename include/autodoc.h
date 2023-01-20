@@ -64,7 +64,8 @@ public:
 	* @brief Use this constructor if you want to replace the C++
 	* types with Python types, but want to use different types for
 	* the parameters and functions. This is useful when a wrapped
-	* Python function can accept multiple "similar", but can only
+	* Python function can accept multiple "similar" types,
+	* but can only
 	* return one specific type.
 	*
 	* @param fname The C++ header file name that contains the C++

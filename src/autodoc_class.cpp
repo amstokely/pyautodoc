@@ -11,6 +11,7 @@
 
 AutoDocClass::AutoDocClass (
 		std::istream *is,
+		const std::string& exampleFilesDirectory,
 		std::map<
 				std::string,
 				std::string
@@ -65,6 +66,17 @@ AutoDocClass::AutoDocClass (
 		}
 		if (substringInString(
 				line,
+				"@PythonExampleFile"
+		)) {
+			this->pythonExamples_.emplace_back(
+					parseExampleFileName(
+							line,
+							exampleFilesDirectory
+					),
+					"python"
+			);
+		} else if (substringInString(
+				line,
 				"@PythonExample"
 		)) {
 			this->pythonExamples_.emplace_back(
@@ -73,6 +85,17 @@ AutoDocClass::AutoDocClass (
 			);
 		}
 		if (substringInString(
+				line,
+				"@CppExampleFile"
+		)) {
+			this->cppExamples_.emplace_back(
+					parseExampleFileName(
+							line,
+							exampleFilesDirectory
+					),
+					"c++"
+			);
+		} else if (substringInString(
 				line,
 				"@CppExample"
 		)) {
@@ -101,6 +124,7 @@ AutoDocClass::AutoDocClass (
 				AutoDocFunction autoDocFunction(
 						is,
 						this->name_,
+						exampleFilesDirectory,
 						this->functionCppPyTypes_,
 						this->parameterCppPyTypes_
 				);

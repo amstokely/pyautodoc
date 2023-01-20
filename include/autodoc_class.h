@@ -15,6 +15,7 @@ public:
 
 	explicit AutoDocClass (
 			std::istream *is,
+			const std::string& exampleFilesDirectory,
 			std::map<
 					std::string,
 					std::string

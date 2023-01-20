@@ -158,6 +158,54 @@ void parseFunctionTypeAndName (
 	}
 }
 
+std::string parseExampleFileName (
+		std::string &line,
+		const std::string &exampleFilesDirectory
+) {
+	if (substringInString(
+			line,
+			"ExampleFile"
+	)
+	    != std::string::npos) {
+		std::string delimiter                   = "{";
+		auto        pos                         = line.find(delimiter);
+		auto        start                       = pos
+		                                          + delimiter.length();
+		auto        end                         = line.find('}');
+		auto        exampleFileNameStringLength = end
+		                                          - start;
+		auto        exampleFileName             = line.substr(
+				start,
+				exampleFileNameStringLength
+		);
+		std::string newLineBeginning            = line.substr(
+				0,
+				pos
+		);
+		std::string newLineEnd                  = line.substr(
+				end
+				+ 1
+		);
+		removeTrailingWhiteSpace(newLineBeginning);
+		removeLeadingWhiteSpace(newLineBeginning);
+		removeTrailingWhiteSpace(newLineEnd);
+		removeLeadingWhiteSpace(newLineEnd);
+		line = (
+				newLineBeginning
+				+ ' '
+				+ newLineEnd
+		);
+		removeLeadingWhiteSpace(exampleFileName);
+		removeLeadingWhiteSpace(exampleFileName);
+		return (
+				exampleFilesDirectory + "/"
+				+ exampleFileName
+		);
+	} else {
+		return std::string{};
+	}
+}
+
 std::string parseType (
 		std::string &line
 ) {

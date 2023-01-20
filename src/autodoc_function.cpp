@@ -6,13 +6,13 @@
 #include "../include/autodoc_function.h"
 #include "../include/utils.h"
 #include <utility>
-#include <algorithm>
 #include <fstream>
 
 
 AutoDocFunction::AutoDocFunction (
 		std::istream *is,
 		std::string className,
+		const std::string& exampleFilesDirectory,
 		std::map<
 				std::string,
 				std::string
@@ -143,15 +143,41 @@ AutoDocFunction::AutoDocFunction (
 					line
 			);
 		}
-		if (line.find("@PythonExample")
-		    != std::string::npos) {
+		if (substringInString(
+				line,
+				"@PythonExampleFile"
+		)) {
+			this->pythonExamples_.emplace_back(
+					parseExampleFileName(
+							line,
+							exampleFilesDirectory
+					),
+					"python"
+			);
+		} else if (substringInString(
+				line,
+				"@PythonExample"
+		)) {
 			this->pythonExamples_.emplace_back(
 					is,
 					"python"
 			);
 		}
-		if (line.find("@CppExample")
-		    != std::string::npos) {
+		if (substringInString(
+				line,
+				"@CppExampleFile"
+		)) {
+			this->cppExamples_.emplace_back(
+					parseExampleFileName(
+							line,
+							exampleFilesDirectory
+					),
+					"c++"
+			);
+		} else if (substringInString(
+				line,
+				"@CppExample"
+		)) {
 			this->cppExamples_.emplace_back(
 					is,
 					"c++"

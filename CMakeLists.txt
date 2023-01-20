@@ -9,6 +9,9 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/wrappers/pyautodoc/pyauto
 find_package (Python3 COMPONENTS Interpreter Development)
 find_package(SWIG REQUIRED)
 find_package(Doxygen REQUIRED)
+find_package(Boost REQUIRED COMPONENTS SYSTEM FILESYSTEM)
+include_directories(${Boost_INCLUDE_DIRS})
+link_directories(${Boost_LIBRARY_DIRS})
 set(SWIG_INTERFACE ${CMAKE_SOURCE_DIR}/swig/autodoc.i)
 include_directories(${CMAKE_SOURCE_DIR}/include)
 include_directories(${CMAKE_SOURCE_DIR}/example/include)
@@ -28,6 +31,9 @@ add_library(_pyautodoc SHARED
         src/autodoc_class.cpp
         src/autodoc_example.cpp src/autodoc_note.cpp)
 set_target_properties(_pyautodoc PROPERTIES OUTPUT_DIR ${LIB_DIR} LIBRARY_OUTPUT_DIRECTORY ${LIB_DIR})
+target_link_libraries(_pyautodoc ${Boost_FILESYSTEM_LIBRARY_RELEASE})
+target_link_libraries(_pyautodoc ${Boost_SYSTEM_LIBRARY_RELEASE})
+
 set(CMAKE_SWIG_OUTDIR ${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
 
 swig_add_library(
@@ -50,6 +56,8 @@ set(DOXYGEN_PREDEFINED DOXYGEN_IGNORE)
 set(DOXYGEN_ALIASES
         [[PythonExample{1}=<b>Python Example</b><br>\code{.py}\1\endcode]]
         [[CppExample{1}=<b>C++ Example</b><br>\code{.cpp}\1\endcode]]
+        [[PythonExampleFile{1}=<b>Python Example</b><br>\include \1]]
+        [[CppExampleFile{1}=<b>C++ Example</b><br>\include \1]]
         [[type{1}=<!-- \1 -->]]
         [[function{1}=<!-- \1 -->]]
         [[const=<!--  -->]]

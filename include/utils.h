@@ -75,4 +75,9 @@ int substringInString (
 		const std::string &substr
 );
 
+std::string parseExampleFileName (
+		std::string &line,
+		const std::string& exampleFilesDirectory
+);
+
 #endif //PYAUTODOC_UTILS_H

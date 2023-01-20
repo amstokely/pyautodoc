@@ -27,18 +27,24 @@ set(DOXYGEN_PROJECT_NAME Atom)
 set(DOXYGEN_ALIASES
         [[PythonExample{1}=<b>Python Example</b><br>\code{.py}\1\endcode]]
         [[CppExample{1}=<b>C++ Example</b><br>\code{.cpp}\1\endcode]]
+        [[PythonExampleFile{1}=<b>Python Example</b><br>\include \1]]
+        [[CppExampleFile{1}=<b>C++ Example</b><br>\include \1]]
         [[type{1}=<!-- \1 -->]]
         [[function{1}=<!-- \1 -->]]
         [[const=<!--  -->]]
         [[AutoDocIgnore=<!--  -->]]
         )
 set(DOXYGEN_EXTRACT_PRIVATE YES)
+set(DOXYGEN_EXAMPLE_PATH /home/andy/)
 set(DOXYGEN_FULL_PATH_NAMES NO)
 set(DOXYGEN_ENABLE_PREPROCESSING NO)
 set(DOXYGEN_STRIP_CODE_COMMENTS NO)
 set(DOXYGEN_COMPACT_LATEX YES)
 set(DOXYGEN_EXTRACT_PRIVATE YES)
-set(DOXYGEN_EXAMPLE_PATH ${CMAKE_SOURCE_DIR}/doxygen/)
+set(DOXYGEN_EXAMPLE_PATH
+        ${CMAKE_SOURCE_DIR}/doxygen/
+        ${CMAKE_SOURCE_DIR}/
+        )
 set(DOXYGEN_IMAGE_PATH ${CMAKE_SOURCE_DIR}/doxygen/tutorial)
 set(DOXYGEN_GENERATE_DOCBOOK YES)
 set(DOXYGEN_GENERATE_LATEX YES)

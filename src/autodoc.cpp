@@ -8,94 +8,6 @@
 
 AutoDoc::AutoDoc () = default;
 
-AutoDoc::AutoDoc (
-		const std::string &fname
-) {
-	std::ifstream is(
-			fname,
-			std::ifstream::binary
-	);
-	std::string   line;
-	while (std::getline(
-			is,
-			line
-	)) {
-		if (docStringStart(line)) {
-			std::string docStringType = getDocStringType(
-					&is,
-					line
-			);
-			if (docStringType
-			    == "function") {
-				AutoDocFunction autoDocFunction(
-						&is,
-						line,
-						this->functionCppPyTypes_,
-						this->parameterCppPyTypes_
-				);
-				this->functions_.push_back(autoDocFunction);
-			} else if (docStringType
-			           == "class") {
-				AutoDocClass autoDocClass(
-						&is,
-						this->functionCppPyTypes_,
-						this->parameterCppPyTypes_
-				);
-				this->classes_.push_back(autoDocClass);
-			}
-		}
-	}
-}
-
-AutoDoc::AutoDoc (
-		const std::string &fname,
-		std::map<
-				std::string,
-				std::string
-		        > *cppPyTypes
-) {
-	for (
-		auto      &it: *cppPyTypes
-			) {
-		this->functionCppPyTypes_[it.first]  = it.second;
-		this->parameterCppPyTypes_[it.first] = it.second;
-	}
-	std::ifstream is(
-			fname,
-			std::ifstream::binary
-	);
-	std::string   line;
-	while (std::getline(
-			is,
-			line
-	)) {
-		if (docStringStart(line)) {
-			std::string docStringType = getDocStringType(
-					&is,
-					line
-			);
-			if (docStringType
-			    == "function") {
-				AutoDocFunction autoDocFunction(
-						&is,
-						line,
-						this->functionCppPyTypes_,
-						this->parameterCppPyTypes_
-				);
-				this->functions_.push_back(autoDocFunction);
-			} else if (docStringType
-			           == "class") {
-				AutoDocClass autoDocClass(
-						&is,
-						this->functionCppPyTypes_,
-						this->parameterCppPyTypes_
-				);
-				this->classes_.push_back(autoDocClass);
-			}
-		}
-	}
-}
-
 std::vector<AutoDocFunction> AutoDoc::functions () {
 	return this->functions_;
 }
@@ -140,6 +52,7 @@ std::map<
 
 AutoDoc::AutoDoc (
 		const std::string &fname,
+		const std::string &exampleFilesDirectory,
 		std::map<
 				std::string,
 				std::string
@@ -149,6 +62,7 @@ AutoDoc::AutoDoc (
 				std::string
 		        > *parameterCppPyTypes
 ) {
+	this->exampleFilesDirectory_ = exampleFilesDirectory;
 	for (
 		auto      &it: *functionCppPyTypes
 			) {
@@ -178,6 +92,7 @@ AutoDoc::AutoDoc (
 				AutoDocFunction autoDocFunction(
 						&is,
 						line,
+						this->exampleFilesDirectory_,
 						this->functionCppPyTypes_,
 						this->parameterCppPyTypes_
 				);
@@ -186,6 +101,7 @@ AutoDoc::AutoDoc (
 			           == "class") {
 				AutoDocClass autoDocClass(
 						&is,
+						this->exampleFilesDirectory_,
 						this->functionCppPyTypes_,
 						this->parameterCppPyTypes_
 				);

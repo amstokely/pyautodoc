@@ -23,6 +23,7 @@ public:
 	AutoDocFunction (
 			std::istream *is,
 			std::string className,
+			const std::string& exampleFilesDirectory,
 			std::map<
 					std::string,
 					std::string

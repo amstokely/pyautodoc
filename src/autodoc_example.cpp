@@ -5,8 +5,34 @@
 #include "../include/utils.h"
 #include <istream>
 #include <utility>
+#include <fstream>
+#include <iostream>
+#include "boost/filesystem.hpp"
 
 AutoDocExample::AutoDocExample () = default;
+
+AutoDocExample::AutoDocExample (
+		const std::string& fname,
+		const std::string& language
+) {
+	this->language_ = language;
+	std::ifstream is(
+			fname,
+			std::ifstream::binary
+	);
+	std::string   line;
+	while(getline(is, line)) {
+		line = escapeQuotes(
+				line
+		);
+		cleanDocStringLine(line);
+		this->str_ += (
+				line
+				+ '\n'
+		);
+	}
+	is.close();
+}
 
 AutoDocExample::AutoDocExample (
 		std::istream *is,
@@ -18,7 +44,6 @@ AutoDocExample::AutoDocExample (
 			*is,
 			line
 	)) {
-		removeLeadingWhiteSpace(line);
 		removeTrailingWhiteSpace(line);
 		if (line.find("<!--EXAMPLE END-->")
 		    != std::string::npos) {

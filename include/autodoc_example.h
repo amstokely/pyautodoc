@@ -15,10 +15,19 @@ public:
 			std::istream *is,
 			std::string language
 	);
-	~AutoDocExample();
-	std::string str();
-	std::string language();
-	std::string swigDocString();
+
+	AutoDocExample (
+			const std::string& fname,
+			const std::string& language
+	);
+
+	~AutoDocExample ();
+
+	std::string str ();
+
+	std::string language ();
+
+	std::string swigDocString ();
 
 private:
 	std::string str_;
@@ -26,7 +35,6 @@ private:
 
 	std::string formatSwigDocString ();
 };
-
 
 
 #endif //PYAUTODOC_AUTODOC_EXAMPLE_H

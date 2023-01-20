@@ -208,8 +208,8 @@
 * parameters can take on multiple types.
 * To map all occurrences of std::string to str, all parameter
 * occurrences of double to [np.float64, np.float32, float], and all
-* function occurrences of double to float, modify generate
-* documentation.py as follows.
+* function occurrences of double to float, modify
+* generate_documentation.py as follows.
 * @include tutorial/generate_documentation2.py
 * Run generate_documentation.py
 * @code{.sh}

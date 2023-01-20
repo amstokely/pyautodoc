@@ -237,9 +237,9 @@
 * overloading on the Python side. Natively, SWIG only copies the
 * docstring for the last overloaded method when generating
 * documentation for a set of overloaded methods. PyAutoDoc addresses
-* this SWIG limitation, by concatenating all docstrings for a set of
+* this SWIG limitation by concatenating all docstrings for a set of
 * overloaded methods into one docstring. To illustrate this, lets
-* overload all Atom class methods by defining a setting for each
+* overload all Atom class methods by defining a setter for each
 * attribute, which will have the same name as the already implemented
 * getter. We'll also add a note, using the doxygen \@note special
 * method, to each getter/setter method

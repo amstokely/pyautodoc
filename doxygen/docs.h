@@ -95,11 +95,14 @@
 * Copy the following CMakeLists.txt file into the projects root
 * directory
 * @include tutorial/CMakeLists.txt
-* ,the following SWIG input file into the projects SWIG directory
+* ,the following SWIG input file into the a file named atom.i
+* in the projects SWIG directory
 * @include tutorial/atom1.i
-* ,the following header file into the project's include directory
+* ,the following header file into the a file named atom.h in
+* the project's include directory
 * @include tutorial/atom1.h
-* and the following source file into the project's src directory.
+* and the following source file into a file named atom.cpp in the
+* project's src directory.
 * @include tutorial/atom1.cpp
 * To compile a python callable version of atom, simply go into the
 * build directory

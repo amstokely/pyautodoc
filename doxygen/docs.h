@@ -56,7 +56,7 @@
 * information to PyAutoDoc, and are hidden from doxygen's HTML,
 * XML, and LaTex. Brief descriptions of each alias are provided below.
 * - <B>PyExample{\<text\>} \<!\--EXAMPLE END\--\></B>
-* 		-# The provided text is a python usage example.
+* 		-# The provided text is a Python usage example.
 * - <B>CppExample{\<text\>} \<!\--EXAMPLE END\--\></B>
 * 		-# The provided text is a C++ usage example.
 * - <B>type{\<text\>}</B>
@@ -104,7 +104,7 @@
 * and the following source file into a file named atom.cpp in the
 * project's src directory.
 * @include tutorial/atom1.cpp
-* To compile a python callable version of atom, simply go into the
+* To compile a Python callable version of atom, simply go into the
 * build directory
 * @code{.sh}
 * cd build
@@ -127,9 +127,9 @@
 * @endcode
 * it prints the Atom class's docstring.
 * @include tutorial/atom_docstring1.txt
-* Since this python class is generated from SWIG wrapper code, even if
+* Since this Python class is generated from SWIG wrapper code, even if
 * the C++ was documented using normal doxygen, none of documentation
-* would be copied into the python version. This is
+* would be copied into the Python version. This is
 * where PyAutoDoc comes in. Open the projects header file, atom.h,
 * and add the below doxygen comment block directly above the Atom
 * class declaration.
@@ -149,7 +149,7 @@
 * python generate_documentation.py
 * @endcode
 * This creates a file named atom_docs.i, which is the SWIG interface
-* file used to create python docstrings.
+* file used to create Python docstrings.
 * @include tutorial/atom_docs1.i
 * In order for SWIG to use this file during compilation, you have to
 * add an include directive with the SWIG docstring interface file's
@@ -194,17 +194,17 @@
 * python test.py
 * @endcode
 * As before, all of the Atom class documentation from the C++ side
-* was copied into the python version's docstring.
+* was copied into the Python version's docstring.
 * @include tutorial/atom_docstring3.txt
-* One thing you might notice is that the types in the python
+* One thing you might notice is that the types in the Python
 * docstring are C++ types, which might confuse users who are
 * unfamiliar with C++. To address this problem, you can pass a
 * dictionary of
-* C++/Python type substitutions to the python AutoDoc class
-* constructor, and these substitutions are used when generating the
+* C++/Python type substitutions to the Python AutoDoc class
+* constructor. These substitutions are used when generating the
 * SWIG docstring directives. You can define type substitutions for
 * both parameters and functions. This is useful because
-* functions can only return one type in python, while
+* functions can only return one type in Python, while
 * parameters can take on multiple types.
 * To map all occurrences of std::string to str, all parameter
 * occurrences of double to [np.float64, np.float32, float], and all
@@ -225,16 +225,16 @@
 * python test.py
 * @endcode
 * Notice how all C++ types were replaced by the substitutions passed to
-* the AutoDoc python constructor in generate_documentation.py.
+* the AutoDoc Python constructor in generate_documentation.py.
 * @include tutorial/atom_docstring4.txt
-* While python and C++ are both OOP languages that support
+* While Python and C++ are both OOP languages that support
 * polymorphism, they do so to different extents.
-* Unlike C++, python does not support method overloading
+* Unlike C++, Python does not support method overloading
 * Being that method overloading is commonly used in C++, this poses a
-* significant problem when generating python interfaces from C++.
+* significant problem when generating Python interfaces from C++.
 * SWIG addresses this problem by scrambling the names of overloaded
 * C++ methods under the hood, which preserves C++ method
-* overloading on the python side. Natively, SWIG only copies the
+* overloading on the Python side. Natively, SWIG only copies the
 * docstring for the last overloaded method when generating
 * documentation for a set of overloaded methods. PyAutoDoc addresses
 * this SWIG limitation, by concatenating all docstrings for a set of
@@ -246,7 +246,7 @@
 * specifying the method is a getter or setter. This might be
 * helpful for users, since the getters/setters do not have
 * get/set in their names. Additionally, each getter/setter will
-* have a python example. Replace atom.h with
+* have a Python example. Replace atom.h with
 * @include tutorial/atom4.h
 * and atom.cpp with
 * @include tutorial/atom2.cpp
@@ -259,7 +259,7 @@
 * and run test.py.
 * @include atom_docstring5.txt
 * The documentation for all of the overloaded methods was copied into
-* the python docstrings, and marked with version numbers. <BR>
+* the Python docstrings, and marked with version numbers. <BR>
 * This
 * concludes the tutorial. All final files used in this tutorial can be
 * found in the example/atom PyAutoDoc source code directory.

@@ -155,7 +155,7 @@
 * add an include directive with the SWIG docstring interface file's
 * path to the primary SWIG
 * interface file.
-* @include tutorial/atom1.i
+* @include tutorial/atom2.i
 * Rebuild the project
 * @code{.sh}
 * cd ../build

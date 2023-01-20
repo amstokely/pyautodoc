@@ -211,6 +211,19 @@
 * function occurrences of double to float, modify generate
 * documentation.py as follows.
 * @include tutorial/generate_documentation2.py
+* Run generate_documentation.py
+* @code{.sh}
+* python generate_documentation.py
+* @endcode
+* and rebuild the project and then run test.py.
+* @code{.sh}
+* cd ../build
+* rm -rf *
+* cmake ..
+* make
+* cd ..
+* python test.py
+* @endcode
 * Notice how all C++ types were replaced by the substitutions passed to
 * the AutoDoc python constructor in generate_documentation.py.
 * @include tutorial/atom_docstring4.txt

@@ -120,7 +120,7 @@
 * @endcode
 * and create a file
 * called test.py. Copy the below code into test.py.
-* @include tutorial/test.py.
+* @include tutorial/test.py
 * When you run test.py
 * @code{.py}
 * python test.py
@@ -129,7 +129,7 @@
 * @include tutorial/atom_docstring1.txt
 * Since this python class is generated from SWIG wrapper code, even if
 * the C++ was documented using normal doxygen, none of documentation
-* documentation would be copied into the python version. This is
+* would be copied into the python version. This is
 * where PyAutoDoc comes in. Open the projects header file, atom.h,
 * and add the below doxygen comment block directly above the Atom
 * class declaration.

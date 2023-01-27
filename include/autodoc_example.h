@@ -11,11 +11,6 @@ class AutoDocExample {
 public:
 	AutoDocExample ();
 
-	explicit AutoDocExample (
-			std::istream *is,
-			std::string language
-	);
-
 	AutoDocExample (
 			const std::string& fname,
 			const std::string& language

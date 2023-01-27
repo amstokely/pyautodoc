@@ -34,38 +34,6 @@ AutoDocExample::AutoDocExample (
 	is.close();
 }
 
-AutoDocExample::AutoDocExample (
-		std::istream *is,
-		std::string language
-) {
-	this->language_ = std::move(language);
-	std::string line;
-	while (std::getline(
-			*is,
-			line
-	)) {
-		removeTrailingWhiteSpace(line);
-		if (line.find("<!--EXAMPLE END-->")
-		    != std::string::npos) {
-			this->str_ = this->str_.substr(
-					0,
-					this->str_.length()
-					- 1
-			);
-			break;
-		} else {
-			line = escapeQuotes(
-					line
-			);
-			cleanDocStringLine(line);
-			this->str_ += (
-					line
-					+ '\n'
-			);
-		}
-	}
-}
-
 std::string AutoDocExample::swigDocString () {
 	std::string swigDocString_;
 	swigDocString_ = indentSwigDocStringLine(this->str_);

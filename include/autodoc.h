@@ -24,7 +24,7 @@ public:
 
 	AutoDoc (
 			const std::string &fname,
-			const std::string &exampleFilesDirectory,
+			const std::string &doxygenExamplePath,
 			std::map<
 					std::string,
 					std::string

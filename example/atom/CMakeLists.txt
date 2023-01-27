@@ -24,11 +24,10 @@ swig_add_library(
 )
 swig_link_libraries(atom _atom)
 set(DOXYGEN_PROJECT_NAME Atom)
+set(DOXYGEN_EXAMPLE_PATH ${CMAKE_SOURCE_DIR}/samples/)
 set(DOXYGEN_ALIASES
-        [[PythonExample{1}=<b>Python Example</b><br>\code{.py}\1\endcode]]
-        [[CppExample{1}=<b>C++ Example</b><br>\code{.cpp}\1\endcode]]
-        [[PythonExampleFile{1}=<b>Python Example</b><br>\include \1]]
-        [[CppExampleFile{1}=<b>C++ Example</b><br>\include \1]]
+        [[PythonExample{1}=<b>Python Example</b><br>\include \1]]
+        [[CppExample{1}=<b>C++ Example</b><br>\include \1]]
         [[type{1}=<!-- \1 -->]]
         [[function{1}=<!-- \1 -->]]
         [[const=<!--  -->]]
@@ -37,6 +36,8 @@ set(DOXYGEN_ALIASES
 set(DOXYGEN_EXTRACT_PRIVATE YES)
 set(DOXYGEN_EXAMPLE_PATH /home/andy/)
 set(DOXYGEN_FULL_PATH_NAMES NO)
+set(DOXYGEN_FILE_PATTERNS *.cu)
+set(DOXYGEN_EXTENSION_MAPPING cu=c++)
 set(DOXYGEN_ENABLE_PREPROCESSING NO)
 set(DOXYGEN_STRIP_CODE_COMMENTS NO)
 set(DOXYGEN_COMPACT_LATEX YES)

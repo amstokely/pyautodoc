@@ -52,7 +52,7 @@ std::map<
 
 AutoDoc::AutoDoc (
 		const std::string &fname,
-		const std::string &exampleFilesDirectory,
+		const std::string &doxygenExamplePath,
 		std::map<
 				std::string,
 				std::string
@@ -62,7 +62,7 @@ AutoDoc::AutoDoc (
 				std::string
 		        > *parameterCppPyTypes
 ) {
-	this->exampleFilesDirectory_ = exampleFilesDirectory;
+	this->exampleFilesDirectory_ = doxygenExamplePath;
 	for (
 		auto      &it: *functionCppPyTypes
 			) {

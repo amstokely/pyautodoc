@@ -160,11 +160,11 @@ void parseFunctionTypeAndName (
 
 std::string parseExampleFileName (
 		std::string &line,
-		const std::string &exampleFilesDirectory
+		const std::string &doxygenExamplePath
 ) {
 	if (substringInString(
 			line,
-			"ExampleFile"
+			"Example"
 	)
 	    != std::string::npos) {
 		std::string delimiter                   = "{";
@@ -198,7 +198,7 @@ std::string parseExampleFileName (
 		removeLeadingWhiteSpace(exampleFileName);
 		removeLeadingWhiteSpace(exampleFileName);
 		return (
-				exampleFilesDirectory + "/"
+				doxygenExamplePath + "/"
 				+ exampleFileName
 		);
 	} else {

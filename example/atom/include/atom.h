@@ -19,19 +19,6 @@ public:
 	* @brief The default constructor. When an instance of Atom is
 	* instantiated using this constructor, you have to manually set
 	* all of the class attributes.
-	*
-	*@PythonExample{
-	* from atom import Atom
-	*
-	* newAtom = Atom()
-	* newAtom.index(0)
-	* newAtom.name('CA')
-	* newAtom.element("C")
-	* newAtom.residueName("GLU")
-	* newAtom.residueId(1)
-	* newAtom.mass(12.001)
-	*
-	* }<!--EXAMPLE END-->
 	*/
 	Atom ();
 
@@ -56,11 +43,7 @@ public:
 * @param mass The atom's atomic mass in amu.
 * @type{double}
 *
-* @PythonExample{
-* from atom import Atom
-*
-* newAtom = Atom(0, 'CA', 'C', 'GLU', 1, 12.001)
-* } <!--EXAMPLE END-->
+* @PythonExample{Atom_Atom.py}
 */
 	Atom (
 			int index,
@@ -77,7 +60,8 @@ public:
 	* @return The atom's index.
 	* @note This method is the index attribute getter
 	*
-	* } <!--EXAMPLE END-->
+	* @PythonExample{Atom_index.py}
+	*
 	*/
 	int index () const;
 
@@ -90,20 +74,7 @@ public:
 	* @brief Sets the atom's index.
 	* @note This method is the index attribute setter.
 	*
-	* @PythonExample{
-	*
-	* from atom import Atom
-	*
-	* newAtom = Atom()
-	* newAtom.index(0)
-	*
-	* index = newAtom.index()
-	* print(index)
-	*
-	* '''
-	* --> 0
-	* '''
-	* } <!--EXAMPLE END-->
+	* @PythonExample{Atom_int_index.py}
 	*/
 	void index (int index);
 
@@ -112,6 +83,8 @@ public:
 	* @brief Return's the atom's name.
 	* @return The atom's name.
 	* @note This method is the name attribute getter.
+	*
+	* @PythonExample{Atom_name.py}
 	*/
 	std::string name ();
 
@@ -122,21 +95,7 @@ public:
 	*
 	* @brief Sets the atom's name.
 	* @note This method is the name attribute setter.
-	*
-	* @PythonExample{
-	*
-	* from atom import Atom
-	*
-	* newAtom = Atom()
-	* newAtom.name("CA)
-	*
-	* name = newAtom.name()
-	* print(name)
-	*
-	* '''
-	* --> CA
-	* '''
-	* } <!--EXAMPLE END-->
+	* @PythonExample{Atom_str_name.py}
 	*/
 	void name (std::string name);
 
@@ -145,6 +104,7 @@ public:
 	* @brief Return's the atom's element symbol.
 	* @return The atom's element symbol.
 	* @note This method is the element attribute getter.
+	* @PythonExample{Atom_element.py}
 	*
 	*/
 	std::string element ();
@@ -156,23 +116,7 @@ public:
 	*
 	* @brief Sets the atom's element symbol.
 	* @note This method is the element attribute setter.
-	*
-	* @PythonExample{
-	*
-	* from atom import Atom
-	*
-	* newAtom = Atom()
-	* newAtom.element("C")
-	*
-	* element = newAtom.element()
-	* print(element)
-	*
-	* '''
-	* --> C
-	* '''
-	*
-	* } <!--EXAMPLE END-->
-	*
+	* @PythonExample{Atom_str_element.py}
 	*/
 	void element (std::string element);
 
@@ -181,6 +125,7 @@ public:
 	* @brief Return's the atom's residue name.
 	* @return The atom's residue name.
 	* @note This method is the residueName attribute getter.
+	* @PythonExample{Atom_residueName.py}
 	*/
 	std::string residueName ();
 
@@ -191,21 +136,7 @@ public:
 	*
 	* @brief Sets the atom's residue name.
 	* @note This method is the residueName attribute setter.
-	*
-	* @PythonExample{
-	*
-	* from atom import Atom
-	*
-	* newAtom = Atom()
-	* newAtom.residueName("GLU")
-	*
-	* residueName = newAtom.residueName()
-	* print(residueName)
-	*
-	* '''
-	* --> GLU
-	* '''
-	* } <!--EXAMPLE END-->
+	* @PythonExample{Atom_str_residueName.py}
 	*/
 	void residueName (std::string residueName);
 
@@ -214,6 +145,7 @@ public:
 	* @brief Return's the atom's residue ID.
 	* @return The atom's residue ID.
 	* @note This method is the residueId attribute getter.
+	* @PythonExample{Atom_residueId.py}
 	*/
 	int residueId () const;
 
@@ -224,21 +156,7 @@ public:
 	*
 	* @brief Sets the atom's residue ID.
 	* @note This method is the residueId attribute setter.
-	*
-	* @PythonExample{
-	*
-	* from atom import Atom
-	*
-	* newAtom = Atom()
-	* newAtom.residueId(1)
-	*
-	* residueId = newAtom.residueId()
-	* print(residueId)
-	*
-	* '''
-	* --> 1
-	* '''
-	* } <!--EXAMPLE END-->
+	* @PythonExample{Atom_int_residueId.py}
 	*/
 	void residueId (int residueId);
 
@@ -248,6 +166,7 @@ public:
 	* @brief Return's the atom's mass.
 	* @return The atom's mass.
 	* @note This method is the mass attribute getter.
+	* @PythonExample{Atom_mass.py}
 	*/
 	double mass () const;
 
@@ -258,22 +177,7 @@ public:
 	*
 	* @brief Sets the atom's mass.
 	* @note This method is the mass attribute setter.
-	*
-	* @PythonExample{
-	*
-	* from atom import Atom
-	*
-	* newAtom = Atom()
-	* newAtom.mass(12.001)
-	*
-	* mass = newAtom.mass()
-	* print(mass)
-	*
-	* '''
-	* --> 12.001
-	* '''
-	*
-	* } <!--EXAMPLE END-->
+	* @PythonExample{Atom_double_mass.py}
 	*/
 	void mass (double mass);
 

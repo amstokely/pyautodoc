@@ -77,7 +77,7 @@ int substringInString (
 
 std::string parseExampleFileName (
 		std::string &line,
-		const std::string& exampleFilesDirectory
+		const std::string& doxygenExamplePath
 );
 
 #endif //PYAUTODOC_UTILS_H

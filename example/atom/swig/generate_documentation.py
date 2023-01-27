@@ -23,7 +23,7 @@ parameterCppPyTypes = {
 }
 atom_docs = AutoDoc(
     '../include/atom.h',
-    '/home/andy/CLionProjects/pyautodoc/example/atom',
+    '/home/andy/CLionProjects/pyautodoc/example/atom/samples',
     functionCppPyTypes,
     parameterCppPyTypes
 )

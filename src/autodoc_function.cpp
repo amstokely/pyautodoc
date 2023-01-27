@@ -12,7 +12,7 @@
 AutoDocFunction::AutoDocFunction (
 		std::istream *is,
 		std::string className,
-		const std::string& exampleFilesDirectory,
+		const std::string &doxygenExamplePath,
 		std::map<
 				std::string,
 				std::string
@@ -145,41 +145,25 @@ AutoDocFunction::AutoDocFunction (
 		}
 		if (substringInString(
 				line,
-				"@PythonExampleFile"
+				"@PythonExample"
 		)) {
 			this->pythonExamples_.emplace_back(
 					parseExampleFileName(
 							line,
-							exampleFilesDirectory
+							doxygenExamplePath
 					),
-					"python"
-			);
-		} else if (substringInString(
-				line,
-				"@PythonExample"
-		)) {
-			this->pythonExamples_.emplace_back(
-					is,
 					"python"
 			);
 		}
 		if (substringInString(
 				line,
-				"@CppExampleFile"
+				"@CppExample"
 		)) {
 			this->cppExamples_.emplace_back(
 					parseExampleFileName(
 							line,
-							exampleFilesDirectory
+							doxygenExamplePath
 					),
-					"c++"
-			);
-		} else if (substringInString(
-				line,
-				"@CppExample"
-		)) {
-			this->cppExamples_.emplace_back(
-					is,
 					"c++"
 			);
 		}

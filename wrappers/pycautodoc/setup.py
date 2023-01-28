@@ -8,17 +8,17 @@ path = os.path.relpath(os.path.dirname(__file__))
 setup(
     author='Andy Stokely',
     email='amstokely@ucsd.edu',
-    name='pyautodoc',
+    name='pycautodoc',
     install_requires=[],
     platforms=['Linux',
                'Unix', ],
-    python_requires="<=3.9",
-    py_modules=[path + "pyautodoc/pyautodoc"],
+    python_requires=">=3.8",
+    py_modules=[path + "pycautodoc/pycautodoc"],
     packages=find_packages() + [''],
     zip_safe=False,
     package_data={
         '': [
-            path + '/pyautodoc/_pyautodoc.so'
+            path + '/pycautodoc/_pycautodoc.so'
         ]
     },
 )

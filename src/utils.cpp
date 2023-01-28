@@ -77,7 +77,7 @@ void cleanDocStringLine (std::string &line) {
 	}
 	size_t                   pos;
 	std::vector<std::string> substringsToErase = {
-			std::string("*"),
+			std::string("* "),
 			std::string("@param"),
 			std::string("@brief"),
 			std::string("@return"),

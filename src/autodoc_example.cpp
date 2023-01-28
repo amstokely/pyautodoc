@@ -25,7 +25,6 @@ AutoDocExample::AutoDocExample (
 		line = escapeQuotes(
 				line
 		);
-		cleanDocStringLine(line);
 		this->str_ += (
 				line
 				+ '\n'

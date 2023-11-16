@@ -1,4 +1,4 @@
-%module pycautodoc 
+%module pyautodoc 
 %include "std_string.i"
 %include "std_vector.i"
 %{

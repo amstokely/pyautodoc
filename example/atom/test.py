@@ -4,5 +4,6 @@ sys.path.insert(1, 'lib')
 from atom import Atom
 
 obj = Atom()
-obj.element(element="C")
+obj.element("C")
 print(obj.element())
+help(Atom)

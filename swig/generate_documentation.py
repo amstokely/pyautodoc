@@ -1,10 +1,14 @@
 import sys
+from pathlib import Path
 
-sys.path.insert(1, '../wrappers/pyautodoc/pyautodoc')
 from pyautodoc import AutoDoc
 
+header_path = Path("/home/astokely/pyautodoc/include/autodoc.h")
+print(header_path.exists())
+
 pyautodoc_swig_documentation = AutoDoc(
-    "../include/autodoc.h",
+    str(header_path),
+    "/home/astokely/pyautodoc/samples",
     {
         "std::map<std::string, std::string>*": "dict[str:str]",
         "std::map<std::string, std::string> *": "dict[str:str]",

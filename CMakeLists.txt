@@ -1,10 +1,10 @@
 cmake_minimum_required(VERSION 3.21)
-project(pycautodoc LANGUAGES CXX)
+project(pyautodoc LANGUAGES CXX)
 
 
 set(SRC_DIR ${CMAKE_SOURCE_DIR}/src)
-set(LIB_DIR ${CMAKE_SOURCE_DIR}/wrappers/pycautodoc/pycautodoc)
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/wrappers/pycautodoc/pycautodoc)
+set(LIB_DIR ${CMAKE_SOURCE_DIR}/wrappers/pyautodoc/pyautodoc)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/wrappers/pyautodoc/pyautodoc)
 
 find_package (Python3 COMPONENTS Interpreter Development)
 find_package(SWIG REQUIRED)
@@ -21,7 +21,7 @@ set_source_files_properties(${SWIG_INTERFACE} PROPERTIES CPLUSPLUS ON
         )
 include(${SWIG_USE_FILE})
 
-add_library(_pycautodoc SHARED
+add_library(_pyautodoc SHARED
         src/autodoc.cpp
         src/autodoc_function.cpp
         src/utils.cpp
@@ -30,17 +30,17 @@ add_library(_pycautodoc SHARED
         src/autodoc_return.cpp
         src/autodoc_class.cpp
         src/autodoc_example.cpp src/autodoc_note.cpp)
-set_target_properties(_pycautodoc PROPERTIES OUTPUT_DIR ${LIB_DIR} LIBRARY_OUTPUT_DIRECTORY ${LIB_DIR})
-target_link_libraries(_pycautodoc ${Boost_FILESYSTEM_LIBRARY_RELEASE})
-target_link_libraries(_pycautodoc ${Boost_SYSTEM_LIBRARY_RELEASE})
+set_target_properties(_pyautodoc PROPERTIES OUTPUT_DIR ${LIB_DIR} LIBRARY_OUTPUT_DIRECTORY ${LIB_DIR})
+target_link_libraries(_pyautodoc ${Boost_FILESYSTEM_LIBRARY_RELEASE})
+target_link_libraries(_pyautodoc ${Boost_SYSTEM_LIBRARY_RELEASE})
 
 set(CMAKE_SWIG_OUTDIR ${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
 
 swig_add_library(
-        pycautodoc LANGUAGE python
+        pyautodoc LANGUAGE python
         SOURCES ${SWIG_INTERFACE} ${SRC_DIR}/autodoc.cpp ${SWIG_INTERFACE}
 )
-swig_link_libraries(pycautodoc _pycautodoc)
+swig_link_libraries(pyautodoc _pyautodoc)
 set(PYTHON_BUILD_EXT_ARGS "setup.py" "build_ext" "--inplace")
 set(PYTHON_BUILD_ARGS "setup.py" "build")
 set(PYTHON_INSTALL_ARGS "setup.py" "install")
@@ -48,7 +48,7 @@ add_custom_target(PythonInstall
         COMMAND ${Python3_EXECUTABLE} ${PYTHON_BUILD_EXT_ARGS}
         COMMAND ${Python3_EXECUTABLE} ${PYTHON_BUILD_ARGS}
         COMMAND ${Python3_EXECUTABLE} ${PYTHON_INSTALL_ARGS}
-        WORKING_DIRECTORY ../wrappers/pycautodoc)
+        WORKING_DIRECTORY ../wrappers/pyautodoc)
 set(DOXYGEN_PROJECT_NAME PyAutoDoc)
 set(DOXYGEN_PREDEFINED DOXYGEN_IGNORE)
 
@@ -87,10 +87,10 @@ list(APPEND PYCAUTODOC_DOCUMENTATION_INPUT_FILES
         ${CMAKE_SOURCE_DIR}/include/autodoc.h
         )
 doxygen_add_docs(
-        pycautodoc_docs
+        pyautodoc_docs
         ${PYCAUTODOC_DOCUMENTATION_INPUT_FILES}
 )
-set(DOCUMENTATION_ARGS "Doxyfile.pycautodoc_docs")
+set(DOCUMENTATION_ARGS "Doxyfile.pyautodoc_docs")
 add_custom_target(docs
         COMMAND ${DOXYGEN_EXECUTABLE} ${DOCUMENTATION_ARGS}
         )

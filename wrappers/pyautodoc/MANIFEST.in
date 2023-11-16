@@ -1,4 +1,4 @@
-include pycautodoc.toml
+include pyautodoc.toml
 include *.md
 include LICENSE
 ~                                          

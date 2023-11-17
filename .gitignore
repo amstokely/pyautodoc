@@ -1,0 +1,10 @@
+*.so
+build
+cmake-build-debug
+docs
+wrappers/pyautodoc/dist
+*.egg*
+example/atom/lib
+example/atom/build
+wrappers/pyautodoc/pyautodoc/autodocPYTHON_wrap.cxx
+wrappers/pyautodoc/pyautodoc/pyautodoc.py

@@ -3,12 +3,13 @@ from pathlib import Path
 
 from pyautodoc import AutoDoc
 
-header_path = Path("/home/astokely/pyautodoc/include/autodoc.h")
-print(header_path.exists())
+cwd = Path.cwd()
+header_path = cwd.parent / "include/autodoc.h"
+samples_dir = cwd.parent / "example/atom/samples"
 
 pyautodoc_swig_documentation = AutoDoc(
     str(header_path),
-    "/home/astokely/pyautodoc/samples",
+    str(samples_dir),
     {
         "std::map<std::string, std::string>*": "dict[str:str]",
         "std::map<std::string, std::string> *": "dict[str:str]",
@@ -22,4 +23,4 @@ pyautodoc_swig_documentation = AutoDoc(
         "void": "None",
     }
 )
-pyautodoc_swig_documentation.writeSwigDocString("autodoc_documentation.i")
+pyautodoc_swig_documentation.writeSwigDocString(str(cwd / "autodoc_documentation.i"))
